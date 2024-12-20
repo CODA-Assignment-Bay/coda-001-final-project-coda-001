@@ -6,7 +6,7 @@ dags_path = '/home/user/airflow/dags/'
 # Setup configuration for default argument
 default_args = {
     'owner': 'felix',
-    'start_date': dt.datetime(2024, 11, 1),
+    'start_date': dt.datetime(2024, 1, 1),
     'retries': 1,
     'retry_delay': dt.timedelta(minutes=1),
 }
@@ -15,7 +15,7 @@ default_args = {
 with DAG('dummy_test_final_project',
          description='ETL Process automation pipeline for dummy final project',
          default_args=default_args,
-         schedule_interval='10-30/10 9 * * 6',
+         schedule_interval='@yearly',
          ) as dag:
 
     extractData = BashOperator(task_id='extract_data',
