@@ -58,7 +58,9 @@ with logo:
   st.image(image, width=100)
 with page_title:
   st.markdown(title, unsafe_allow_html=True)
+st.markdown('---')
 
+pilihan = st.selectbox('Pilih kolom:',('Age','Weight','Height','ShootingTotal'))
 created_by, chart1, chart2 = st.columns([0.1,0.45,0.45])
 with created_by:
   st.markdown(creator, unsafe_allow_html=True)
@@ -69,16 +71,18 @@ with chart2:
 
 
 __ , chat_ai = st.columns([0.1, 0.9])
-chat_completion = client.chat.completions.create(
+
+
+with chat_ai:
+  chat_completion = client.chat.completions.create(
     messages=[
         {
             "role": "user",
-            "content": f"Insight apa yang bisa diambil dari data {trend_movie} dan data {count_genre}",
+            "content": f"{input}. Analisa berdasarkan data {count_genre} dan {trend_movie}",
         }
     ],
     model="llama3-8b-8192",
-)
-
-with chat_ai:
+  )
+  
   st.write(f"{chat_completion.choices[0].message.content}")
 
